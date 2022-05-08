@@ -1,14 +1,10 @@
 package com.ms.rihuo;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ms.dianshang.bean.LoginCommonLog;
 import com.ms.dianshang.bean.LoginLog;
-import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.common.state.MapState;
-import org.apache.flink.api.common.state.MapStateDescriptor;
-import org.apache.flink.api.common.state.ValueState;
-import org.apache.flink.api.common.state.ValueStateDescriptor;
+import org.apache.flink.api.common.state.*;
+import org.apache.flink.api.common.time.Time;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -66,8 +62,16 @@ public class RihuoMain {
         @Override
         public void open(Configuration parameters) throws Exception {
             super.open(parameters);
+            // 设置超时时间，超过24小时后，key会被清除
+            StateTtlConfig ttlConfig = StateTtlConfig
+                    .newBuilder(Time.hours(24))
+                    .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
+                    .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
+                    .build();
             MapStateDescriptor<String,Boolean> mapStateDescriptor=new MapStateDescriptor<String, Boolean>("has login?",String.class,Boolean.class);
+            mapStateDescriptor.enableTimeToLive(ttlConfig);
             hasLogin = getRuntimeContext().getMapState(mapStateDescriptor);
+
             ValueStateDescriptor<Integer> valueStateDescriptor = new ValueStateDescriptor<>("uv", Integer.class);
             count=getRuntimeContext().getState(valueStateDescriptor);
         }
