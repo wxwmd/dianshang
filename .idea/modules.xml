@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dianshang.iml" filepath="$PROJECT_DIR$/.idea/dianshang.iml" />
       <module fileurl="file://$PROJECT_DIR$/rihuo/rihuo.iml" filepath="$PROJECT_DIR$/rihuo/rihuo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shoudan/shoudan.iml" filepath="$PROJECT_DIR$/shoudan/shoudan.iml" />
     </modules>
   </component>
 </project>

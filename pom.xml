@@ -11,6 +11,7 @@
     <modules>
         <module>rihuo</module>
         <module>common</module>
+        <module>shoudan</module>
     </modules>
 
     <dependencies>

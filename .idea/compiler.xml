@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rihuo" />
         <module name="common" />
+        <module name="shoudan" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.5" />
       <module name="dianshang" target="1.5" />
       <module name="rihuo" target="8" />
+      <module name="shoudan" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
